@@ -5,6 +5,5 @@ module.exports = schema => (req, res, next) => {
 
   if (result.error)
     return res.status(400).send({ error: result.error.details[0].message });
-
-  next();
+    next();
 };

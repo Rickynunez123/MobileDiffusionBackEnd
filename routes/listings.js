@@ -40,7 +40,6 @@ router.get("/", (req, res) => {
   const resources = listings.map(listingMapper);
   res.send(resources);
 });
-
 router.post(
   "/",
   [
@@ -68,6 +67,7 @@ router.post(
     listing.images = req.images.map((fileName) => ({ fileName: fileName }));
     if (req.body.location) listing.location = JSON.parse(req.body.location);
     if (req.user) listing.userId = req.user.userId;
+    console.log("Listing Images:", req.images)
 
     store.addListing(listing);
 
@@ -75,4 +75,34 @@ router.post(
   }
 );
 
+
 module.exports = router;
+// router.post(
+//   "/",
+//   [
+//     // Other middleware goes here
+//     upload.array("images", config.get("maxImageCount")),
+//     validateWith(schema),
+//     validateCategoryId,
+//     imageResize,
+//   ],
+//   async (req, res) => {
+//     console.log("Request Body:", req.body);
+//     console.log("Images:", req.files); // <-- Corrected property name
+
+//     const listing = {
+//       title: req.body.title,
+//       price: parseFloat(req.body.price),
+//       categoryId: parseInt(req.body.categoryId),
+//       description: req.body.description,
+//     };
+//     listing.images = req.files.map((file) => ({ fileName: file.filename })); // <-- Corrected access to file.filename
+//     if (req.body.location) listing.location = JSON.parse(req.body.location);
+//     if (req.user) listing.userId = req.user.userId;
+
+//     store.addListing(listing);
+
+//     res.status(201).send(listing);
+//   }
+// );
+
